@@ -6,11 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Ahorcado</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rowdies&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div style="text-align: center; margin: 50px 0px">
       <h1 class="titulo">Ahorcado</h1>
       <button class="btn" id="iniciar-juego">INICIAR JUEGO</button>
+    </div>
+
+    <div id="divword" style="text-align: center">
+      <canvas
+        id="ahorcado"
+        height="800px"
+        width="1200px"
+        style="border: 10px solid #000000"
+      ></canvas>
+      <div id="lista">
+        <ul class="word">
+          <li data-pos="0" class="letter">*</li>
+          <li data-pos="1" class="letter">*</li>
+          <li data-pos="2" class="letter">*</li>
+          <li data-pos="3" class="letter correct">e</li>
+          <li data-pos="1" class="letter">*</li>
+          <li data-pos="2" class="letter">*</li>
+          <li data-pos="3" class="letter correct">e</li>
+          <li data-pos="4" class="letter">*</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <div class="errada">I</div>
+        <div class="errada">D</div>
+        <div class="errada">X</div>
+        <div class="errada">U</div>
+        <div class="errada">A</div>
+        <div class="errada">B</div>
+        <div class="errada">I</div>
+        <div class="errada">D</div>
+        <div class="errada">X</div>
+        <div class="errada">U</div>
+        <div class="errada">A</div>
+        <div class="errada">B</div>
+      </div>
     </div>
     <div style="text-align: center">
       <input
@@ -21,14 +63,7 @@
       />
       <button class="btn" id="nueva-palabra">AGREGAR PALABRA</button>
     </div>
-    <div style="text-align: center">
-      <canvas
-        id="ahorcado"
-        height="800px"
-        width="1200px"
-        style="border: 10px solid #000000"
-      ></canvas>
-    </div>
+
     <script type="text/javascript" src="canvas.js"></script>
     <script type="text/javascript" src="ahorcado.js"></script>
   </body>

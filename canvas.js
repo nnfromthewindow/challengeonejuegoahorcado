@@ -1,5 +1,6 @@
 var canvas = document.getElementById("ahorcado");
 var pincel = canvas.getContext("2d");
+var word = document.getElementById("divword");
 
 function drawHang() {
   let ancholinea = 7;
@@ -14,7 +15,7 @@ function drawHang() {
     pincel.fill();
   }
   drawBase();
-
+  pincel.setLineDash([]);
   pincel.beginPath();
   pincel.strokeStyle = "black";
   pincel.moveTo(200, 560);
@@ -26,26 +27,47 @@ function drawHang() {
 }
 
 function head() {
-  pincel.moveTo(500, 150);
   pincel.beginPath();
-  pincel.arc(60, 60, 50, 0, 2 * Math.PI, false);
-  pincel.fill();
+  pincel.arc(500, 200, 50, 0, 2 * Math.PI, false);
+  pincel.stroke();
 }
 
-function body() {}
+function body() {
+  pincel.beginPath();
+  pincel.strokeStyle = "black";
+  pincel.moveTo(500, 250);
+  pincel.lineTo(500, 400);
+  pincel.stroke();
+}
 
-function legLeft() {}
+function legLeft() {
+  pincel.beginPath();
+  pincel.strokeStyle = "black";
+  pincel.moveTo(500, 397);
+  pincel.lineTo(450, 550);
+  pincel.stroke();
+}
 
-function legRight() {}
+function legRight() {
+  pincel.beginPath();
+  pincel.strokeStyle = "black";
+  pincel.moveTo(500, 397);
+  pincel.lineTo(550, 550);
+  pincel.stroke();
+}
 
-function armLeft() {}
+function armLeft() {
+  pincel.beginPath();
+  pincel.strokeStyle = "black";
+  pincel.moveTo(500, 290);
+  pincel.lineTo(420, 360);
+  pincel.stroke();
+}
 
-function armRight() {}
-
-drawHang();
-head();
-body();
-legLeft();
-legRight();
-armLeft();
-armRight();
+function armRight() {
+  pincel.beginPath();
+  pincel.strokeStyle = "black";
+  pincel.moveTo(500, 290);
+  pincel.lineTo(580, 360);
+  pincel.stroke();
+}
