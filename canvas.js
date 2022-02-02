@@ -25,7 +25,12 @@ function drawHang() {
   pincel.stroke();
 }
 
-function head() {}
+function head() {
+  pincel.moveTo(500, 150);
+  pincel.beginPath();
+  pincel.arc(60, 60, 50, 0, 2 * Math.PI, false);
+  pincel.fill();
+}
 
 function body() {}
 
