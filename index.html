@@ -9,16 +9,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Rowdies&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Lobster&family=Permanent+Marker&family=Rowdies&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <div style="text-align: center; margin: 50px 0px">
-      <h1 class="titulo">Ahorcado</h1>
-      <button class="btn" id="iniciar-juego">INICIAR JUEGO</button>
+    <div class="titulo">
+      <div style="text-align: center">
+        <h1>Ahorcado!!!</h1>
+      </div>
     </div>
-
+    <div class="resultLft">
+      <h1>GANASTE</h1>
+    </div>
+    <div class="resultRgt">
+      <h1>GANASTE</h1>
+    </div>
     <div id="divword" style="text-align: center">
       <canvas
         id="ahorcado"
@@ -26,6 +32,7 @@
         width="1200px"
         style="border: 10px solid #000000"
       ></canvas>
+      <button class="iniciarBtn" id="iniciar-juego">INICIAR JUEGO</button>
       <div id="lista">
         <ul class="word">
           <li data-pos="0" class="letter">*</li>
@@ -40,28 +47,21 @@
       </div>
 
       <div class="box">
-        <div class="errada">I</div>
-        <div class="errada">D</div>
-        <div class="errada">X</div>
-        <div class="errada">U</div>
-        <div class="errada">A</div>
-        <div class="errada">B</div>
-        <div class="errada">I</div>
-        <div class="errada">D</div>
-        <div class="errada">X</div>
-        <div class="errada">U</div>
-        <div class="errada">A</div>
-        <div class="errada">B</div>
+        <div>I</div>
+        <div>D</div>
+        <div>X</div>
+        <div>U</div>
+        <div>A</div>
+        <div>B</div>
       </div>
     </div>
-    <div style="text-align: center">
+    <div class="agregar" style="text-align: center">
       <input
-        class="text-input"
         type="text"
         id="input-nueva-palabra"
         placeholder="Escriba una nueva palabra"
       />
-      <button class="btn" id="nueva-palabra">AGREGAR PALABRA</button>
+      <button id="agregarBtn">AGREGAR PALABRA</button>
     </div>
 
     <script type="text/javascript" src="canvas.js"></script>
