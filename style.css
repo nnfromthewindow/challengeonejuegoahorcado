@@ -68,8 +68,8 @@ body {
   font-family: "Rowdies", cursive;
   border-bottom: 0.7vh solid black;
   margin: 0 1vh;
-  font-size: 7vh;
-  padding: 10px;
+  font-size: 6vh;
+  padding: 1vh;
   transition: 0.5s;
   text-transform: uppercase;
 }
@@ -93,6 +93,7 @@ body {
   padding: 0.5vh;
   justify-content: space-between;
   font-family: "Rowdies", cursive;
+  text-transform: uppercase;
   font-size: 7vh;
   border-color: black;
   border-width: 0.7vh;
@@ -107,7 +108,7 @@ body {
 
 .box div {
   /*background-color: gainsboro;*/
-  width: 5%;
+  width: fit-content;
 
   margin: 1.5vh;
   text-align: center;
@@ -238,7 +239,7 @@ body {
   }
   #lista {
     top: 82%;
-    right: 4%;
+    right: 15%;
     margin: 0 auto;
     width: fit-content;
   }

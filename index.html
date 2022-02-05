@@ -20,41 +20,19 @@
       </div>
     </div>
     <div class="resultLft">
-      <h1>GANASTE</h1>
+      <h1 id="finalResultLft"></h1>
     </div>
     <div class="resultRgt">
-      <h1>GANASTE</h1>
+      <h1 id="finalResultRgt"></h1>
     </div>
     <div id="divword" style="text-align: center">
       <canvas id="ahorcado" height="800px" width="1200px"></canvas>
       <button class="iniciarBtn" id="iniciar-juego">INICIAR JUEGO</button>
       <div id="lista">
-        <ul class="word">
-          <li data-pos="0" class="letter">*</li>
-          <li data-pos="1" class="letter">*</li>
-          <li data-pos="2" class="letter">*</li>
-          <li data-pos="3" class="letter correct">e</li>
-          <li data-pos="1" class="letter">*</li>
-          <li data-pos="2" class="letter">*</li>
-          <li data-pos="3" class="letter correct">e</li>
-          <li data-pos="4" class="letter">*</li>
-          <li data-pos="1" class="letter">*</li>
-          <li data-pos="2" class="letter">*</li>
-          <li data-pos="3" class="letter correct">e</li>
-          <li data-pos="1" class="letter">*</li>
-          <li data-pos="2" class="letter">*</li>
-          <li data-pos="3" class="letter correct">e</li>
-        </ul>
+        <ul class="word" id="ulist"></ul>
       </div>
 
-      <div class="box">
-        <div>I</div>
-        <div>D</div>
-        <div>X</div>
-        <div>U</div>
-        <div>A</div>
-        <div>B</div>
-      </div>
+      <div class="box" id="fails"></div>
     </div>
     <div class="agregar" style="text-align: center">
       <input
