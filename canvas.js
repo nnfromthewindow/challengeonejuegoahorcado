@@ -71,3 +71,7 @@ function armRight() {
   pincel.lineTo(580, 360);
   pincel.stroke();
 }
+
+function removeHanged() {
+  pincel.clearRect(0, 0, canvas.width, canvas.height);
+}
