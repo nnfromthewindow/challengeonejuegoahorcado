@@ -7,9 +7,9 @@ armLeft();
 armRight();
 
 let wordList = ["JUAN", "PERRO", "CARTA", "CHINARDO", "PELIRROJO", "AMOR"];
-let random = Math.floor(Math.random() * wordList.length);
-let selectedWord = wordList[random];
+let selectedWord = wordList[random()];
 let wordMin = selectedWord.toLowerCase();
+let divLista = document.getElementById("lista");
 let palabra = document.getElementById("ulist");
 let fail = document.getElementById("fails");
 let initBtn = document.getElementById("iniciar-juego");
@@ -65,15 +65,28 @@ document.onkeydown = function (e) {
     resLft.innerText = "GANASTE";
     resRgt.innerText = "GANASTE";
     console.log("GANASTEEEEEE WACHOOOOO");
+    resetGame();
   }
   if (failList.length == 6) {
     resLft.innerText = "PERDISTE";
     resRgt.innerText = "PERDISTE";
     console.log("PERDISTEEEE");
+    resetGame();
   }
 };
+function resetGame() {
+  resLft.innerText = "";
+  resRgt.innerText = "";
+  palabra.innerHTML = "";
+  divLista.innerHTML = "";
+  selectedWord = wordList[random()];
+}
+function random() {
+  return Math.floor(Math.random() * wordList.length);
+}
 
-initGame();
+initBtn.addEventListener("click", initGame);
+
 /*
 let position = document.querySelector("[position = '0']");
 let position = document.querySelector("[position], [i]")
