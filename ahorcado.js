@@ -1,4 +1,4 @@
-let wordList = ["JUAN", "PERRO", "CARTA", "CHINARDO", "PELIRROJO", "AMOR"];
+let wordList = ["AMOR"];
 
 let divLista = document.getElementById("lista");
 let palabra = document.getElementById("ulist");
@@ -15,18 +15,30 @@ let hashmap = new Map();
 
 let permitidas = [
   65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83,
-  84, 85, 86, 87, 88, 89, 90,
+  84, 85, 86, 87, 88, 89, 90, 8, 13, 37, 39, 46, 192,
 ];
 
 fail.style.opacity = 0;
+
+document.onkeydown = function (e) {
+  if (!permitidas.includes(e.keyCode) && textField == true) {
+    e.returnValue = false;
+  }
+};
+
+if (input.value.length > 0 && Event.key == "Enter" && permitidas.includes) {
+  console.log("VAAA");
+}
 
 function initGame() {
   resetGame();
   drawHang();
   loadWords();
+  downloadWords();
 
   let selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
   let wordMin = selectedWord.toLowerCase();
+  console.log(selectedWord);
   for (let i = 0; i < selectedWord.length; i++) {
     let li = document.createElement("li");
     li.setAttribute("position", i);
@@ -37,6 +49,9 @@ function initGame() {
   }
 
   document.onkeydown = function (e) {
+    if (!permitidas.includes(e.keyCode) && textField == true) {
+      e.returnValue = false;
+    }
     if (textField == true) {
       return (e.key = "");
     }
@@ -110,8 +125,24 @@ resetGame = () => {
 };
 
 loadWords = () => {
-  for (let i = 0; i < wordList.length; i++) {
-    localStorage.setItem(i, wordList[i]);
+  for (let i = 0; i < localStorage.length; i++) {
+    if (
+      localStorage.getItem(i) != null &&
+      !wordList.includes(localStorage.getItem(i)) &&
+      !input.value != localStorage.getItem(i)
+    ) {
+      wordList.push(localStorage.getItem(i));
+    }
+  }
+};
+downloadWords = () => {
+  for (let i = 0; i <= localStorage.length; i++) {
+    if (
+      !wordList.includes(localStorage.getItem(i)) &&
+      localStorage.getItem(i) != null
+    ) {
+      wordList.push(localStorage.getItem(i));
+    }
   }
 };
 
@@ -125,7 +156,16 @@ input.addEventListener("blur", function () {
   textField = false;
 });
 
+input.addEventListener("keypress", function (e) {
+  if (e.keyCode == 13 && input.value.length > 0) {
+    localStorage.setItem(localStorage.length + 1, input.value.toUpperCase());
+    input.value = "";
+  }
+});
+
 addBtn.addEventListener("click", function () {
-  localStorage.setItem(localStorage.length + 1, input.value);
-  input.value = "";
+  if (input.value.length > 0) {
+    localStorage.setItem(localStorage.length + 1, input.value.toUpperCase());
+    input.value = "";
+  }
 });
