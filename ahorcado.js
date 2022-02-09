@@ -27,24 +27,50 @@ let resRgt = document.getElementById("finalResultRgt");
 let input = document.getElementById("input-nueva-palabra");
 let addBtn = document.getElementById("agregarBtn");
 let hidden = document.getElementById("hidden");
+let canva = document.getElementById("divword");
 let textField = false;
 let failList = [];
 let hashmap = new Map();
 let permitidas = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "Ñ",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+/*let permitidas = [
   65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83,
   84, 85, 86, 87, 88, 89, 90, 8, 13, 37, 39, 46, 192,
 ];
-
+*/
 //SETEAMOS A 0 LA OPACIDAD DE LAS LETRAS A ADIVINAR
 fail.style.opacity = 0;
 
 //VALIDACION QUE SI ESTOY ESCRIBIENDO EN EL INPUT
 //NO AGREGUE PALABRAS A MI JUEGO ACTUAL
-document.onkeydown = function (e) {
-  if (!permitidas.includes(e.keyCode) && textField == true) {
-    e.returnValue = false;
-  }
-};
+
 //INICIAMOS FUNCION DEL JUEGO
 function initGame() {
   resetGame();
@@ -64,41 +90,80 @@ function initGame() {
     palabra.appendChild(li);
   }
   //VALIDACIONES DE EVENTOS DE TECLA PARA QUE SOLO SEAN CARACTERES PERMITIDOS
-  document.onkeydown = function (e) {
+  hidden.oninput = function () {
     //PRIMERO FILTRAMOS LAS CORRECTAS
-    if (!permitidas.includes(e.keyCode) && textField == true) {
+
+    for (let i = 0; i < selectedWord.length; i++) {
+      if (
+        hidden.value.charAt(hidden.value.length - 1).toUpperCase() ==
+          selectedWord.charCodeAt(i) &&
+        failList.length < 6
+      ) {
+        let position = document.querySelectorAll("[position]");
+        position.item(i).setAttribute("style", "color: black");
+        position.item(i).innerText = hidden.value
+          .charAt(hidden.value.length - 1)
+          .toUpperCase();
+        hashmap.set(
+          i,
+          hidden.value.charAt(hidden.value.length - 1).toUpperCase()
+        );
+      }
+    }
+
+    /*
+    if (
+      !permitidas.includes(
+        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
+      ) &&
+      textField == true
+    ) {
       e.returnValue = false;
     }
     if (textField == true) {
-      return (e.key = "");
+      return (hidden.value.charAt(hidden.value.length - 1).toUpperCase() = "");
     }
     for (let i = 0; i < selectedWord.length; i++) {
-      if (e.keyCode == selectedWord.charCodeAt(i) && failList.length < 6) {
+      if (hidden.value.charAt(hidden.value.length - 1).toUpperCase() == selectedWord.charCodeAt(i) && failList.length < 6) {
         let position = document.querySelectorAll("[position]");
         position.item(i).setAttribute("style", "color: black");
-        position.item(i).innerText = e.key;
-        hashmap.set(i, e.key.toUpperCase());
+        position.item(i).innerText = hidden.value.charAt(hidden.value.length - 1).toUpperCase();
+        hashmap.set(i, hidden.value.charAt(hidden.value.length - 1).toUpperCase());
       }
-    }
+    }*/
     //LUEGO FILTRAMOS LAS INCORRECTAS INGRESANDO LOS
     //CARACTERES INCORRECTOS A UN ARRAY
     if (
-      !selectedWord.includes(e.key) &&
-      !wordMin.includes(e.key) &&
-      permitidas.includes(e.keyCode) &&
-      !failList.includes(e.key) &&
+      !selectedWord.includes(
+        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
+      ) &&
+      !wordMin.includes(
+        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
+      ) &&
+      permitidas.includes(
+        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
+      ) &&
+      !failList.includes(
+        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
+      ) &&
       failList.length < 6 &&
       hashmap.size < selectedWord.length &&
-      e.keyCode != 8
+      hidden.value.charAt(hidden.value.length - 1).toUpperCase() != 8
     ) {
       let div = document.createElement("div");
-      div.innerText = e.key;
+      div.innerText = hidden.value
+        .charAt(hidden.value.length - 1)
+        .toUpperCase();
       fail.appendChild(div);
       fail.style.opacity = 100;
-      if (failList.includes(e.key)) {
+      if (
+        failList.includes(
+          hidden.value.charAt(hidden.value.length - 1).toUpperCase()
+        )
+      ) {
         return;
       }
-      failList.push(e.key);
+      failList.push(hidden.value.charAt(hidden.value.length - 1).toUpperCase());
     }
     //DIBUJAMOS PARTES DEL MUÑECO CON UN
     //SWITCH EN BASE AL LENGTH DEL ARRAY DE FAILS
@@ -170,15 +235,10 @@ downloadWords = () => {
   }
 };
 //FUNCION DE CLICK PARA ABRIR TECLADO EN CELULARES
-canvas.onclick = () => {
+divword.addEventListener("click", function (e) {
+  e.preventDefault();
   hidden.focus();
-};
-input.onclick = () => {
-  input.focus();
-};
-input.onblur = () => {
-  hidden.focus();
-};
+});
 
 //EVENT LISTENERS DE BOTONES Y TECLA PARA AGREGAR CON ENTER
 
@@ -205,3 +265,7 @@ addBtn.addEventListener("click", function () {
     input.value = "";
   }
 });
+
+hidden.oninput = () => {
+  console.log(hidden.value.charAt(hidden.value.length - 1).toUpperCase());
+};
