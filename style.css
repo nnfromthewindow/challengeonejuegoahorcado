@@ -284,7 +284,37 @@ body {
   top: 1%;
   right: 45%;
   margin: 0 auto;
-  opacity: 1;
+  text-transform: uppercase;
+  opacity: 0;
+}
+#footer {
+  width: fit-content;
+  height: 10%;
+  background: rgb(132, 60, 181);
+  background: linear-gradient(
+    90deg,
+    rgba(132, 60, 181, 0.12088585434173671) 0%,
+    rgba(96, 153, 195, 0.43461134453781514) 50%,
+    rgba(252, 176, 69, 0.12088585434173671) 100%
+  );
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+  color: cadetblue;
+  margin: 0 auto;
+  margin-top: 3%;
+  transition: 0.5s;
+  border-radius: 1rem;
+  transition-duration: 2s;
+}
+#footer :hover {
+  background: rgb(181, 60, 60);
+  background: linear-gradient(
+    90deg,
+    rgba(181, 60, 60, 0.12088585434173671) 0%,
+    rgba(195, 96, 96, 0.6755077030812324) 50%,
+    rgba(252, 185, 69, 0.12088585434173671) 100%
+  );
+  border-radius: 1rem;
 }
 
 @media screen and (max-width: 1000px) {
@@ -311,13 +341,13 @@ body {
     top: 103%;
 
     padding: 0px;
-    font-size: 10px;
+
     margin: 0 auto;
     height: 50px;
     width: fit-content;
   }
   .box div {
-    font-size: 10px;
+    font-size: 20px;
     width: min-content;
   }
   .titulo h1 {
@@ -329,18 +359,22 @@ body {
     margin: auto;
   }
   #lista {
-    top: 82%;
-
+    top: 365px;
     margin: 0 auto;
     width: fit-content;
   }
 
   .letter {
-    font-size: 1.5vh;
+    font-size: 15px;
+    display: inline-block;
+
+    margin: 0 2px;
+
+    padding: 5px;
   }
   .agregar {
     position: absolute;
-    top: 70%;
+    top: 700px;
   }
   .resultRgt {
     position: absolute;
@@ -361,25 +395,30 @@ body {
     position: absolute;
     font-size: 30px;
     text-align: center;
+    animation: animacionCelu 5s infinite;
   }
   #input-nueva-palabra {
-    position: fixed;
-    top: 600px;
-    width: 90%;
-    right: 20px;
+    position: relative;
+    top: -50px;
+    width: 80%;
+    margin: 0 auto;
     font-size: 20px;
   }
   #agregarBtn {
-    position: fixed;
-    top: 700px;
-    right: 60px;
-    margin-top: 2%;
-    font-size: 3vh;
+    position: relative;
+
+    margin: 0 auto;
+    font-size: 25px;
   }
   .iniciarBtn {
     top: 20%;
-    font-size: 3vh;
+    font-size: 25px;
   }
+}
+#footer {
+  margin: 0 auto;
+  height: fit-content;
+  margin-top: 420px;
 }
 @keyframes animacion {
   0% {
@@ -402,5 +441,28 @@ body {
   100% {
     color: green;
     font-size: 5vh;
+  }
+}
+@keyframes animacionCelu {
+  0% {
+    color: red;
+    font-size: 40px;
+  }
+  25% {
+    color: blue;
+  }
+
+  50% {
+    color: violet;
+    font-size: 50px;
+  }
+
+  75% {
+    color: aqua;
+  }
+
+  100% {
+    color: green;
+    font-size: 40px;
   }
 }

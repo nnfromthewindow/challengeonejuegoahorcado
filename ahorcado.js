@@ -27,7 +27,6 @@ let resRgt = document.getElementById("finalResultRgt");
 let input = document.getElementById("input-nueva-palabra");
 let addBtn = document.getElementById("agregarBtn");
 let hidden = document.getElementById("hidden");
-let canva = document.getElementById("divword");
 let textField = false;
 let failList = [];
 let hashmap = new Map();
@@ -60,16 +59,9 @@ let permitidas = [
   "Y",
   "Z",
 ];
-/*let permitidas = [
-  65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83,
-  84, 85, 86, 87, 88, 89, 90, 8, 13, 37, 39, 46, 192,
-];
-*/
+
 //SETEAMOS A 0 LA OPACIDAD DE LAS LETRAS A ADIVINAR
 fail.style.opacity = 0;
-
-//VALIDACION QUE SI ESTOY ESCRIBIENDO EN EL INPUT
-//NO AGREGUE PALABRAS A MI JUEGO ACTUAL
 
 //INICIAMOS FUNCION DEL JUEGO
 function initGame() {
@@ -77,6 +69,7 @@ function initGame() {
   drawHang();
   loadWords();
   downloadWords();
+
   //CREAMOS UNA LISTA CON EL LARGO DE LA PABRA SELECCIONADA CON EL CARACTER * Y OPACIDAD 0
   let selectedWord = wordList[Math.floor(Math.random() * wordList.length)];
   let wordMin = selectedWord.toLowerCase();
@@ -89,113 +82,66 @@ function initGame() {
     li.innerText = "*";
     palabra.appendChild(li);
   }
-  //VALIDACIONES DE EVENTOS DE TECLA PARA QUE SOLO SEAN CARACTERES PERMITIDOS
-  hidden.oninput = function () {
-    //PRIMERO FILTRAMOS LAS CORRECTAS
-
-    for (let i = 0; i < selectedWord.length; i++) {
-      if (
-        hidden.value.charAt(hidden.value.length - 1).toUpperCase() ==
-          selectedWord.charCodeAt(i) &&
-        failList.length < 6
-      ) {
-        let position = document.querySelectorAll("[position]");
-        position.item(i).setAttribute("style", "color: black");
-        position.item(i).innerText = hidden.value
-          .charAt(hidden.value.length - 1)
-          .toUpperCase();
-        hashmap.set(
-          i,
-          hidden.value.charAt(hidden.value.length - 1).toUpperCase()
-        );
+  console.log(selectedWord);
+  hidden.oninput = () => {
+    if (failList.length < 6 || hashmap.size < selectedWord.length) {
+      let letter = hidden.value.charAt(hidden.value.length - 1).toUpperCase();
+      if (permitidas.includes(letter) && failList.length < 6) {
+        for (let i = 0; i < selectedWord.length; i++) {
+          if (letter == selectedWord.charAt(i)) {
+            let position = document.querySelectorAll("[position]");
+            position.item(i).setAttribute("style", "color: black");
+            position.item(i).innerText = letter;
+            hashmap.set(i, letter);
+          }
+        }
       }
-    }
-
-    /*
-    if (
-      !permitidas.includes(
-        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
-      ) &&
-      textField == true
-    ) {
-      e.returnValue = false;
-    }
-    if (textField == true) {
-      return (hidden.value.charAt(hidden.value.length - 1).toUpperCase() = "");
-    }
-    for (let i = 0; i < selectedWord.length; i++) {
-      if (hidden.value.charAt(hidden.value.length - 1).toUpperCase() == selectedWord.charCodeAt(i) && failList.length < 6) {
-        let position = document.querySelectorAll("[position]");
-        position.item(i).setAttribute("style", "color: black");
-        position.item(i).innerText = hidden.value.charAt(hidden.value.length - 1).toUpperCase();
-        hashmap.set(i, hidden.value.charAt(hidden.value.length - 1).toUpperCase());
-      }
-    }*/
-    //LUEGO FILTRAMOS LAS INCORRECTAS INGRESANDO LOS
-    //CARACTERES INCORRECTOS A UN ARRAY
-    if (
-      !selectedWord.includes(
-        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
-      ) &&
-      !wordMin.includes(
-        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
-      ) &&
-      permitidas.includes(
-        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
-      ) &&
-      !failList.includes(
-        hidden.value.charAt(hidden.value.length - 1).toUpperCase()
-      ) &&
-      failList.length < 6 &&
-      hashmap.size < selectedWord.length &&
-      hidden.value.charAt(hidden.value.length - 1).toUpperCase() != 8
-    ) {
-      let div = document.createElement("div");
-      div.innerText = hidden.value
-        .charAt(hidden.value.length - 1)
-        .toUpperCase();
-      fail.appendChild(div);
-      fail.style.opacity = 100;
+      console.log(failList.length);
+      //SI PERDES
       if (
-        failList.includes(
-          hidden.value.charAt(hidden.value.length - 1).toUpperCase()
-        )
+        permitidas.includes(letter) &&
+        !selectedWord.includes(letter) &&
+        !failList.includes(letter) &&
+        failList.length < 6 &&
+        hashmap.size != selectedWord.length
       ) {
+        let div = document.createElement("div");
+        div.innerText = letter;
+        fail.appendChild(div);
+        fail.style.opacity = 100;
+        failList.push(letter);
+      }
+      //VALIDACION SI GANAS O PERDES ESCRIBE ETIQUETAS HTML
+      if (hashmap.size == selectedWord.length) {
+        resLft.innerText = "GANASTE";
+        resRgt.innerText = "GANASTE";
         return;
       }
-      failList.push(hidden.value.charAt(hidden.value.length - 1).toUpperCase());
-    }
-    //DIBUJAMOS PARTES DEL MUÑECO CON UN
-    //SWITCH EN BASE AL LENGTH DEL ARRAY DE FAILS
+      if (failList.length == 6) {
+        resLft.innerText = "PERDISTE";
+        resRgt.innerText = "PERDISTE";
+      }
 
-    switch (failList.length) {
-      case 1:
-        head();
-        break;
-      case 2:
-        body();
-        break;
-      case 3:
-        legLeft();
-        break;
-      case 4:
-        legRight();
-        break;
-      case 5:
-        armLeft();
-        break;
-      case 6:
-        armRight();
-        break;
-    }
-    //VALIDACION SI GANAS O PERDES ESCRIBE ETIQUETAS HTML
-    if (hashmap.size == selectedWord.length) {
-      resLft.innerText = "GANASTE";
-      resRgt.innerText = "GANASTE";
-    }
-    if (failList.length == 6) {
-      resLft.innerText = "PERDISTE";
-      resRgt.innerText = "PERDISTE";
+      switch (failList.length) {
+        case 1:
+          head();
+          break;
+        case 2:
+          body();
+          break;
+        case 3:
+          legLeft();
+          break;
+        case 4:
+          legRight();
+          break;
+        case 5:
+          armLeft();
+          break;
+        case 6:
+          armRight();
+          break;
+      }
     }
   };
 }
@@ -235,11 +181,9 @@ downloadWords = () => {
   }
 };
 //FUNCION DE CLICK PARA ABRIR TECLADO EN CELULARES
-divword.addEventListener("click", function (e) {
-  e.preventDefault();
+divword.addEventListener("click", function () {
   hidden.focus();
 });
-
 //EVENT LISTENERS DE BOTONES Y TECLA PARA AGREGAR CON ENTER
 
 initBtn.addEventListener("click", initGame);
@@ -265,7 +209,3 @@ addBtn.addEventListener("click", function () {
     input.value = "";
   }
 });
-
-hidden.oninput = () => {
-  console.log(hidden.value.charAt(hidden.value.length - 1).toUpperCase());
-};
